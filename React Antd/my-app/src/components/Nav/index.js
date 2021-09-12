@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Menu,
   Modal,
@@ -14,6 +14,7 @@ import {
   Col,
 } from "antd";
 
+import UserServer from "../userPassword";
 import { Link } from "react-router-dom";
 import "./nav.less";
 import {
@@ -24,6 +25,7 @@ import {
   UserOutlined,
   LockOutlined,
 } from "@ant-design/icons";
+import axios from "axios";
 
 const { TabPane } = Tabs;
 
@@ -33,45 +35,68 @@ const right = {
   marginLeft: "auto",
 };
 
+//定义服务器地址
+const Server = UserServer.baseUrl;
+console.log(Server);
+
 export default class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       current: "home",
       visible: false,
+      userData: Server + "/User",
     };
   }
-
+  //nav时间处理
   handleMenuClick = (e) => {
     console.log("click ", e);
+    //判断每一个Meun.Item的key是否为login
     if (e.key === "login") {
+      //key为login，将模态框显示为可见
       this.setState({ visible: true });
     } else {
+      //key不为login，选择当前的key
       this.setState({ current: e.key });
     }
   };
-
-  handleOk = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
+  //cancel事件处理
   handleCancel = () => {
+    //点击Cancel后将模态框设置为不可见
     this.setState({
       visible: false,
     });
   };
+
+  //组件挂载
+  componentDidMount() {
+    axios
+      //获取服务器数据目标
+      .get(Server + "/User")
+      .then((response) => {
+        //打印服务器数据到控制台
+        console.log(response.data);
+        const userData = this.state.userData;
+        //将获取到的数据提交到userData
+        this.setState({
+          userData,
+        });
+        console.log(userData);
+      })
+      //抓捕到错误
+      .catch((error) => {
+        //将错误信息打印到控制台
+        console.log(error);
+      });
+  }
 
   callback = (key) => {
+    //将当前点击的key打印到控制台
     console.log(key);
   };
 
   onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  };
-
-  onFinish = (values) => {
+    //点击登录以后将输入的账号，密码打印到控制台
     console.log("Received values of form: ", values);
   };
 
@@ -103,8 +128,8 @@ export default class Nav extends React.Component {
         <Modal
           title="登录 / 注册"
           visible={this.state.visible}
-          onOk={this.handleOk}
           onCancel={this.handleCancel}
+          footer={null}
         >
           <Tabs defaultActiveKey="1" onChange={this.callback}>
             <TabPane tab="登录" key="1">
@@ -118,10 +143,13 @@ export default class Nav extends React.Component {
               >
                 <Form.Item
                   name="username"
+                  //验证器
                   rules={[
                     {
+                      //用户名是必须的
                       required: true,
-                      message: "Please input your Username!",
+                      //空用户名信息
+                      message: "请必须输入你的名字！",
                     },
                   ]}
                 >
@@ -132,9 +160,12 @@ export default class Nav extends React.Component {
                 </Form.Item>
                 <Form.Item
                   name="password"
+                  //验证器
                   rules={[
                     {
+                      //密码是必须的
                       required: true,
+                      //空用户名信息
                       message: "Please input your Password!",
                     },
                   ]}
@@ -176,7 +207,7 @@ export default class Nav extends React.Component {
               >
                 <Form.Item
                   name="email"
-                  label="E-mail"
+                  label="电子邮件"
                   rules={[
                     {
                       type: "email",
@@ -193,7 +224,7 @@ export default class Nav extends React.Component {
 
                 <Form.Item
                   name="password"
-                  label="Password"
+                  label="密码"
                   rules={[
                     {
                       required: true,
@@ -207,7 +238,7 @@ export default class Nav extends React.Component {
 
                 <Form.Item
                   name="confirm"
-                  label="Confirm Password"
+                  label="确认密码"
                   dependencies={["password"]}
                   hasFeedback
                   rules={[
@@ -235,7 +266,7 @@ export default class Nav extends React.Component {
 
                 <Form.Item
                   name="nickname"
-                  label="Nickname"
+                  label="用户名"
                   tooltip="What do you want others to call you?"
                   rules={[
                     {
@@ -250,7 +281,7 @@ export default class Nav extends React.Component {
 
                 <Form.Item
                   name="residence"
-                  label="Habitual Residence"
+                  label="居住地址"
                   rules={[
                     {
                       type: "array",
@@ -264,7 +295,7 @@ export default class Nav extends React.Component {
 
                 <Form.Item
                   name="phone"
-                  label="Phone Number"
+                  label="手机号码"
                   rules={[
                     {
                       required: true,
@@ -279,47 +310,7 @@ export default class Nav extends React.Component {
                     }}
                   />
                 </Form.Item>
-
-                <Form.Item
-                  name="website"
-                  label="Website"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input website!",
-                    },
-                  ]}
-                >
-                  <AutoComplete
-                    options={this.websiteOptions}
-                    onChange={this.onWebsiteChange}
-                    placeholder="website"
-                  >
-                    <Input />
-                  </AutoComplete>
-                </Form.Item>
-
-                <Form.Item
-                  name="gender"
-                  label="Gender"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select gender!",
-                    },
-                  ]}
-                >
-                  <Select placeholder="select your gender">
-                    <Option value="male">Male</Option>
-                    <Option value="female">Female</Option>
-                    <Option value="other">Other</Option>
-                  </Select>
-                </Form.Item>
-
-                <Form.Item
-                  label="Captcha"
-                  extra="We must make sure that your are a human."
-                >
+                <Form.Item label="验证码" extra="我们必须验证您不是机器人">
                   <Row gutter={8}>
                     <Col span={12}>
                       <Form.Item
@@ -336,7 +327,7 @@ export default class Nav extends React.Component {
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Button>Get captcha</Button>
+                      <Button>获取验证码</Button>
                     </Col>
                   </Row>
                 </Form.Item>
@@ -357,12 +348,12 @@ export default class Nav extends React.Component {
                   {...this.tailFormItemLayout}
                 >
                   <Checkbox>
-                    I have read the <a href>agreement</a>
+                    我已阅读过<a href="true">协议</a>
                   </Checkbox>
                 </Form.Item>
                 <Form.Item {...this.tailFormItemLayout}>
                   <Button type="primary" htmlType="submit">
-                    Register
+                    注册
                   </Button>
                 </Form.Item>
               </Form>
