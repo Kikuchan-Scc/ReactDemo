@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Menu } from "antd";
-
 import Modaled from "./Moudle";
 import { Link } from "react-router-dom";
 import "./nav.less";
 import {
   HomeOutlined,
-  BookOutlined,
   ReadOutlined,
   MacCommandOutlined,
 } from "@ant-design/icons";
@@ -41,16 +39,16 @@ export default class Nav extends React.Component {
           style={{ padding: "0 50px" }}
         >
           <Menu.Item key="home" icon={<HomeOutlined />}>
-            <Link to="/">list</Link>
+            <Link to="/">二创</Link>
           </Menu.Item>
-          <Menu.Item key="book" icon={<BookOutlined />}>
-            <Link to="/book">list</Link>
+          <Menu.Item key="book">
+            <Link to="/book">🥵🥵🥵</Link>
           </Menu.Item>
           <Menu.Item key="announcement" icon={<ReadOutlined />}>
-            <Link to="/announcement">list</Link>
+            <Link to="/announcement">查询闲的程度</Link>
           </Menu.Item>
           <Menu.Item key="aboutus" icon={<MacCommandOutlined />}>
-            <Link to="/aboutus">list</Link>
+            <Link to="/aboutus">关于</Link>
           </Menu.Item>
           <Menu.Item key="login" style={right}>
             <Modaled />

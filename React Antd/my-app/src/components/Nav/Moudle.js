@@ -1,5 +1,5 @@
 //引入图标
-import { UserOutlined, LockOutlined, AntDesignOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, DownOutlined } from "@ant-design/icons";
 //引入状态管理hooks
 import React, { useEffect, useState } from "react";
 //引入axios
@@ -12,6 +12,8 @@ import {
   Avatar,
   Form,
   Input,
+  Dropdown,
+  Menu,
   Select,
   message,
   Button,
@@ -21,7 +23,6 @@ import {
   Col,
   Cascader,
 } from "antd";
-import { Content } from "antd/lib/layout/layout";
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -95,6 +96,35 @@ const tailFormItemLayout = {
   },
 };
 
+//注销登录动作
+const Logout = (e) => {
+  //调试
+  console.log("已成功登出账号");
+  //移除本地存储中的uid，使登录状态的判定变成false
+  localStorage.clear("uid");
+  //登出成功信息框
+  message.success("已成功登出账号了捏😊");
+  //计时器
+  setTimeout(() => {
+    //2000毫秒以后刷新页面
+    window.location.reload();
+  }, 2000);
+};
+
+//下拉菜单的渲染
+const menu = (
+  <Menu>
+    <Menu.Item key="1">
+      <a>个人中心</a>
+    </Menu.Item>
+    <Menu.Item key="2">
+      <a onClick={Logout} href="#">
+        注销
+      </a>
+    </Menu.Item>
+  </Menu>
+);
+
 //创建Modal组件
 const Modaled = () => {
   //创建状态管理默认状态为false
@@ -103,8 +133,6 @@ const Modaled = () => {
   const [userData, setUserData] = useState([]);
   //当前状态是否存在错误
   const [serverError, setServerError] = useState(false);
-  //是否高亮
-  const [current] = useState(false);
   //判断是否为登录状态
   const [isLogin, setIsLogin] = useState(false);
   //因为登录时会为其用户分配一个uid如果这个用户存在uid，并且当前登录状态为false
@@ -114,7 +142,32 @@ const Modaled = () => {
   }
   //显示模态框
   const showModal = (e) => {
-    setIsModalVisible(true);
+    //如果当前登录状态为true
+    if (isLogin === true) {
+      //将不显示模态框
+      setIsModalVisible(false);
+    } else {
+      //如果当前不处于登录状态，将会显示模态框
+      setIsModalVisible(true);
+      //判断是否能正常获取数据
+      axios
+        .get(baseUrl + "/user")
+        .then((respose) => {
+          setUserData(respose.data);
+          console.log(respose.data);
+        })
+        .catch((error) => {
+          //让控制台打印出错误信息
+          console.log(error);
+          //因为捕捉到错误将状态设置为true
+          setServerError(true);
+          //弹出错误框
+          Modal.error({
+            title: "出错啦",
+            content: "链接数据时出现错误请检查数据连接是否正常！",
+          });
+        }, []);
+    }
   };
   //隐藏，关闭模态框
   const handleCancel = () => {
@@ -122,27 +175,6 @@ const Modaled = () => {
   };
 
   const [form] = Form.useForm();
-
-  //判断是否能正常获取数据
-  useEffect(() => {
-    axios
-      .get(baseUrl + "/user")
-      .then((respose) => {
-        setUserData(respose.data);
-        console.log(respose.data);
-      })
-      .catch((error) => {
-        //让控制台打印出错误信息
-        console.log(error);
-        //因为捕捉到错误将状态设置为true
-        setServerError(true);
-        //弹出错误框
-        Modal.error({
-          title: "出错啦",
-          content: "链接数据时出现错误请检查数据连接是否正常！",
-        });
-      });
-  }, []);
 
   //登陆成功
   const onFinish = (values) => {
@@ -274,7 +306,13 @@ const Modaled = () => {
   return (
     <>
       {isLogin ? (
-        <Avatar size="small" src="http://q1.qlogo.cn/g?b=qq&nk=792142895&s=640" onClick={showModal} />
+        <Dropdown overlay={menu} placement="bottomLeft" arrow>
+          <Avatar
+            size="small"
+            src="http://q1.qlogo.cn/g?b=qq&nk=792142895&s=640"
+            onClick={showModal}
+          ></Avatar>
+        </Dropdown>
       ) : (
         <Avatar size="small" icon={<UserOutlined />} onClick={showModal} />
       )}

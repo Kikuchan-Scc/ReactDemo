@@ -1,24 +1,23 @@
 import React from "react";
-import { Layout, Breadcrumb } from "antd";
+import { css } from "@emotion/css";
+import Cards from "../Card/Card"
+import { Layout } from "antd";
+import Swipers from "../Swiper/swiper";
 const { Content } = Layout;
-
-const layoutContent = {
-  minHeight: "280px",
-  padding: "24px",
-  background: "#fff",
-};
 
 export default class content extends React.Component {
   render() {
     return (
       <div>
-        <Content style={{padding: '0 50px'}}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div style={layoutContent}>Content</div>
+        <Swipers />
+        <Content style={{padding: '20px 50px'}}>
+          <div className={css`
+            min-height: 280px;
+            padding: 24px;
+            background: #fff;
+          `}>
+            <Cards />
+          </div>
         </Content>
       </div>
     );
