@@ -1,7 +1,7 @@
 //引入图标
-import { UserOutlined, LockOutlined, DownOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 //引入状态管理hooks
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 //引入axios
 import axios from "axios";
 //网络请求
@@ -132,7 +132,7 @@ const Modaled = () => {
   //写入数据
   const [userData, setUserData] = useState([]);
   //当前状态是否存在错误
-  const [serverError, setServerError] = useState(false);
+  // const [serverError, setServerError] = useState(false);
   //判断是否为登录状态
   const [isLogin, setIsLogin] = useState(false);
   //因为登录时会为其用户分配一个uid如果这个用户存在uid，并且当前登录状态为false
@@ -160,7 +160,7 @@ const Modaled = () => {
           //让控制台打印出错误信息
           console.log(error);
           //因为捕捉到错误将状态设置为true
-          setServerError(true);
+          // setServerError(true);
           //弹出错误框
           Modal.error({
             title: "出错啦",

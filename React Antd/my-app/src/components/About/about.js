@@ -40,6 +40,11 @@ const About = () => {
               Swiper ------- 开源、免费、强大的触摸滑动插件
             </Link>
           </li>
+          <li>
+            <Link href="https://react-spring.io/hooks/use-spring/">
+            react-spring ------- React动画库
+            </Link>
+          </li>
         </ul>
       </Paragraph>
 

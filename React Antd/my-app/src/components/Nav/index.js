@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 import Modaled from "./Moudle";
+import { css } from "@emotion/css";
 import { Link } from "react-router-dom";
 import "./nav.less";
 import {
@@ -36,10 +37,12 @@ export default class Nav extends React.Component {
           onClick={this.handleMenuClick}
           selectedKeys={[this.state.current]}
           mode={"horizontal"}
-          style={{ padding: "0 50px" }}
+          className={css`
+            padding: 0 50px;
+          `}
         >
           <Menu.Item key="home" icon={<HomeOutlined />}>
-            <Link to="/">二创</Link>
+            <Link to="/home">二创</Link>
           </Menu.Item>
           <Menu.Item key="book">
             <Link to="/book">🥵🥵🥵</Link>

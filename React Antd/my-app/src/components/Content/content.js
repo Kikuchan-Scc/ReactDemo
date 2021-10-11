@@ -1,8 +1,11 @@
 import React from "react";
 import { css } from "@emotion/css";
-import Cards from "../Card/Card"
+import Cards from "../Card/Card";
 import { Layout } from "antd";
 import Swipers from "../Swiper/swiper";
+import "swiper/swiper-bundle.css";
+import Nav from "../Nav/index";
+import Footer from "../Footer/footer";
 const { Content } = Layout;
 
 export default class content extends React.Component {
@@ -10,16 +13,20 @@ export default class content extends React.Component {
     return (
       <div>
         <Swipers />
-        <Content style={{padding: '20px 50px'}}>
-          <div className={css`
-            min-height: 280px;
-            padding: 24px;
-            background: #fff;
-          `}>
+        <Content>
+          <div
+            className={css`
+              min-height: 280px;
+              padding: 24px;
+              background: #fff;
+            `}
+          >
             <Cards />
           </div>
         </Content>
+        <Footer />
       </div>
+      
     );
   }
 }

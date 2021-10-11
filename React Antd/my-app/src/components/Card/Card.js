@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 import { useEffect, useState } from "react";
 import { Card, Modal, Empty } from "antd";
+import { useSpring, animated } from "react-spring";
 import userServer from "../userPassword";
 import { Typography } from "antd";
 const { Link } = Typography;
@@ -9,7 +10,7 @@ const { Meta } = Card;
 
 const cardStyle = {
   paddingLeft: "10px",
-  paddingBottom: "10px"
+  paddingBottom: "20px",
 };
 
 const Cards = () => {
@@ -33,6 +34,15 @@ const Cards = () => {
       });
   }, []);
 
+  const styles = useSpring({
+    loop: true,
+    to: [
+      { opacity: 1, color: "#ffaaee" },
+      { opacity: 0, color: "rgb(14,26,19)" },
+    ],
+    from: { opacity: 0, color: "red", display: "inline" },
+  });
+
   return cardData.length === 0 ? (
     <Empty
       description={"暂无数据"}
@@ -43,11 +53,13 @@ const Cards = () => {
     />
   ) : (
     <>
-      <h2>😊能转的二创</h2>
+      <h2>
+        😊<animated.div style={styles}>能转的二创</animated.div>
+      </h2>
       <div
         className={css`
           display: flex;
-          margin-bottom : 10px
+          margin-bottom: 10px;
         `}
       >
         <div
@@ -85,7 +97,50 @@ const Cards = () => {
           }
         </div>
       </div>
-      <h2>🥰海子姐近期投稿</h2>
+      <h2>
+        🥰<animated.div style={styles}>海子姐近期投稿</animated.div>
+      </h2>
+      <div
+        className={css`
+          display: flex;
+          margin-bottom: 10px;
+        `}
+      >
+        <div
+          className={css`
+            display: flex;
+            flex-wrap: wrap;
+          `}
+        >
+          {
+            //渲染卡片
+            cardData.map((e) => (
+              <div
+                style={cardStyle}
+                className={css`
+                  width: 20%;
+                `}
+              >
+                <Card
+                  hoverable
+                  src=""
+                  cover={
+                    <img
+                      alt="example"
+                      src={e.images}
+                      style={{ objectFit: "cover", height: "156px" }}
+                    />
+                  }
+                >
+                  <Link href={e.url} target="_blank">
+                    <Meta title={e.title} description="传送门👉" />
+                  </Link>
+                </Card>
+              </div>
+            ))
+          }
+        </div>
+      </div>
     </>
   );
 };
