@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 import { useEffect, useState } from "react";
 import { Card, Modal, Empty } from "antd";
+import axios from "axios";
 import { useSpring, animated } from "react-spring";
 import userServer from "../userPassword";
 import { Typography } from "antd";
@@ -16,6 +17,7 @@ const cardStyle = {
 const Cards = () => {
   //用于渲染卡片
   const [cardData, setCardData] = useState([]);
+  const [videoData, setVideoData] = useState([]);
 
   useEffect(() => {
     //获取card的数据
@@ -32,15 +34,23 @@ const Cards = () => {
           content: "链接数据时出现错误请检查数据连接是否正常！",
         });
       });
+    axios
+      .get("/api2")
+      .then((respose) => {
+        setVideoData(respose.data.data.list.vlist);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const styles = useSpring({
     loop: true,
     to: [
+      { opacity: 1, color: "#ed556a" },
       { opacity: 1, color: "#ffaaee" },
-      { opacity: 0, color: "rgb(14,26,19)" },
     ],
-    from: { opacity: 0, color: "red", display: "inline" },
+    from: { opacity: 1, color: "#ffaaee", display: "inline" },
   });
 
   return cardData.length === 0 ? (
@@ -54,7 +64,7 @@ const Cards = () => {
   ) : (
     <>
       <h2>
-        😊<animated.div style={styles}>能转的二创</animated.div>
+        🥰<animated.div style={styles}>海子姐近期投稿</animated.div>
       </h2>
       <div
         className={css`
@@ -70,7 +80,7 @@ const Cards = () => {
         >
           {
             //渲染卡片
-            cardData.map((e) => (
+            videoData.map((e) => (
               <div
                 style={cardStyle}
                 className={css`
@@ -83,12 +93,15 @@ const Cards = () => {
                   cover={
                     <img
                       alt="example"
-                      src={e.images}
+                      src={e.pic}
                       style={{ objectFit: "cover", height: "156px" }}
                     />
                   }
                 >
-                  <Link href={e.url} target="_blank">
+                  <Link
+                    href={"https://www.bilibili.com/video/" + e.bvid}
+                    target="_blank"
+                  >
                     <Meta title={e.title} description="传送门👉" />
                   </Link>
                 </Card>
@@ -98,7 +111,7 @@ const Cards = () => {
         </div>
       </div>
       <h2>
-        🥰<animated.div style={styles}>海子姐近期投稿</animated.div>
+        😊<animated.div style={styles}>能转的二创</animated.div>
       </h2>
       <div
         className={css`

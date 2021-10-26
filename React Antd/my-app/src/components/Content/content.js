@@ -4,7 +4,6 @@ import Cards from "../Card/Card";
 import { Layout } from "antd";
 import Swipers from "../Swiper/swiper";
 import "swiper/swiper-bundle.css";
-import Nav from "../Nav/index";
 import Footer from "../Footer/footer";
 const { Content } = Layout;
 
@@ -12,7 +11,6 @@ export default class content extends React.Component {
   render() {
     return (
       <div>
-        <Swipers />
         <Content>
           <div
             className={css`

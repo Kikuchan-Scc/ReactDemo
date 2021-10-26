@@ -42,10 +42,10 @@ export default class Nav extends React.Component {
           `}
         >
           <Menu.Item key="home" icon={<HomeOutlined />}>
-            <Link to="/home">二创</Link>
+            <Link to="/home">首页</Link>
           </Menu.Item>
           <Menu.Item key="book">
-            <Link to="/book">🥵🥵🥵</Link>
+            <Link to="/skin">Nanami的衣柜</Link>
           </Menu.Item>
           <Menu.Item key="announcement" icon={<ReadOutlined />}>
             <Link to="/announcement">查询闲的程度</Link>

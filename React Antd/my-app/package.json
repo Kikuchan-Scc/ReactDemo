@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
     "@babel/core": "7.12.3",
@@ -41,6 +42,7 @@
     "file-loader": "6.1.1",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "4.5.0",
+    "http-proxy-middleware": "^2.0.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "26.6.0",
     "jest-circus": "26.6.0",
@@ -81,7 +83,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "server": "json-server -p3001 --watch json/db.json"
+    "server": "json-server -p53000 --watch json/db.json"
   },
   "eslintConfig": {
     "extends": [
