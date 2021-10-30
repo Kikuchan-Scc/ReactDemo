@@ -53,9 +53,9 @@ export default class Nav extends React.Component {
           <Menu.Item key="aboutus" icon={<MacCommandOutlined />}>
             <Link to="/aboutus">关于</Link>
           </Menu.Item>
-          <Menu.Item key="login" style={right}>
+          {/* <Menu.Item key="login" style={right}>
             <Modaled />
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
       </div>
     );

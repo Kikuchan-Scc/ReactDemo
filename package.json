@@ -83,7 +83,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "server": "json-server -p53000 --watch json/db.json"
+    "server": "json-server -p3001 --watch json/db.json"
   },
   "eslintConfig": {
     "extends": [
