@@ -98,7 +98,7 @@ const Cards = () => {
     //     });
     //   });
     axios
-      .get("https://api.bilibili.com/x/space/arc/search?mid=434334701&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp")
+      .get("/api")
       .then((respose) => {
         setVideoData(respose.data.data.list.vlist);
       })
