@@ -10,32 +10,21 @@ import {
   MacCommandOutlined,
 } from "@ant-design/icons";
 
-//将个人中心按钮右对齐
-const right = {
-  marginLeft: "auto",
-};
-
 export default class Nav extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      //路由切换判断
-      current: "home",
-      visible: false,
-    };
-  }
+  state = {
+    current: "home"
+  };
   //nav事件处理
   handleMenuClick = (e) => {
-    console.log("click ", e);
     this.setState({ current: e.key });
   };
 
   render() {
+    const { current } = this.state;
     return (
-      <div>
         <Menu
           onClick={this.handleMenuClick}
-          selectedKeys={[this.state.current]}
+          selectedKeys={[current]}
           mode={"horizontal"}
           className={css`
             padding: 0 50px;
@@ -45,10 +34,10 @@ export default class Nav extends React.Component {
             <Link to="/home">首页</Link>
           </Menu.Item>
           <Menu.Item key="book">
-            <Link to="/skin">Nanami的衣柜</Link>
+            <Link to="/skin">海子姐的衣柜</Link>
           </Menu.Item>
           <Menu.Item key="announcement" icon={<ReadOutlined />}>
-            <Link to="/announcement">查询闲的程度</Link>
+            <Link to="/announcement">海子姐周报</Link>
           </Menu.Item>
           <Menu.Item key="aboutus" icon={<MacCommandOutlined />}>
             <Link to="/aboutus">关于</Link>
@@ -57,7 +46,6 @@ export default class Nav extends React.Component {
             <Modaled />
           </Menu.Item> */}
         </Menu>
-      </div>
     );
   }
 }

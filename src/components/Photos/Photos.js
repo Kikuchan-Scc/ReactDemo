@@ -89,16 +89,6 @@ const Photos = () => {
       margin: 0 0 0 0;
   }
   `;
-  useEffect(() => {
-    userServer
-      .get("/eip")
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   return (
     <div

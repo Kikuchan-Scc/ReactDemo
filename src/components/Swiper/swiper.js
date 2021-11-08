@@ -1,2 +1,2 @@
-let carousel = document.getElementById('containerSwiper')
-  console.log(carousel)
+let carousel = document.getElementById("containerSwiper");
+console.log(carousel);
