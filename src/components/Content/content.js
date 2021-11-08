@@ -2,7 +2,6 @@ import React from "react";
 import { css } from "@emotion/css";
 import Cards from "../Card/Card";
 import { Layout } from "antd";
-import Swipers from "../Swiper/swiper";
 import "swiper/swiper-bundle.css";
 import Footer from "../Footer/footer";
 const { Content } = Layout;
