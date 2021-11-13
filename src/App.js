@@ -23,9 +23,9 @@ function App() {
           <Route exact path="/Announcement" component={Announcement}></Route>
           <Route exact path="/AboutUs" component={AboutUs}></Route>
           <Route exact path="/Login" component={Login}></Route>
-          <Route exact path="*" component={NotFound}></Route>
         </LayoutPage>
       </Switch>
+      
     </Router>
   );
 }
