@@ -1,8 +1,10 @@
 import React from "react";
-export default class Layout extends React.Component {
+import Nav from "../components/Nav"
+export default class LayoutPage extends React.Component {
   render() {
     return (
       <div>
+        <Nav />
         {this.props.children}
       </div>
     );

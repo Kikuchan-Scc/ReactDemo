@@ -94,12 +94,16 @@ const ShowPages = () => {
                       进入主页
                     </Button>
                   </Link>
-                  <Button ghost shape={"round"}>
-                    海子姐直播间
-                  </Button>
-                  <Button ghost shape={"round"}>
-                    海子姐个人空间
-                  </Button>
+                  <a href="https://live.bilibili.com/21452505" target="_blank">
+                    <Button ghost shape={"round"}>
+                      海子姐直播间
+                    </Button>
+                  </a>
+                  <a href="https://space.bilibili.com/434334701" target="_blank">
+                    <Button ghost shape={"round"}>
+                      海子姐个人空间
+                    </Button>
+                  </a>
                 </Space>
               </div>
             </div>
